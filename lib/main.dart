@@ -26,15 +26,12 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Dashboard'),
         actions: [
-          // Logout button added to the top-right corner
+          // Logout button using custom image
           IconButton(
-            icon: Icon(Icons.exit_to_app),
+            icon: Icon(Icons.logout),
             onPressed: () {
-              // Logic to log out (for now just a placeholder)
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
+              // Handle logout functionality here
+              print("Logged out!");
             },
           ),
         ],
@@ -146,17 +143,6 @@ class QRButton extends StatelessWidget {
       },
       child: Icon(Icons.qr_code),
       backgroundColor: Colors.blue,
-    );
-  }
-}
-
-// LoginPage (after user logs out)
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Login Page")),
-      body: Center(child: Text("Please log in to continue.", style: TextStyle(fontSize: 24))),
     );
   }
 }
