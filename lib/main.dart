@@ -25,6 +25,19 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Dashboard'),
+        actions: [
+          // Logout button added to the top-right corner
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              // Logic to log out (for now just a placeholder)
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            },
+          ),
+        ],
       ),
       drawer: SidePanel(), // Drawer used as side menu
       body: Center(
@@ -52,8 +65,7 @@ class SidePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
             accountName: Text('John Doe'),
@@ -63,13 +75,7 @@ class SidePanel extends StatelessWidget {
               child: Icon(Icons.person, color: Colors.blue),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Dashboard'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
+          // Profile item above Dashboard
           ListTile(
             leading: Icon(Icons.account_circle),
             title: Text('Profile'),
@@ -81,12 +87,25 @@ class SidePanel extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            leading: Icon(Icons.home),
+            title: Text('Dashboard'),
             onTap: () {
-              // Add your settings page navigation here
-              Navigator.pop(context);
+              Navigator.pop(context); // Close the drawer and stay on the Dashboard screen
             },
+          ),
+          // Spacer to push the Settings item to the bottom
+          Spacer(),
+          Divider(),  // Divider to separate common items from Settings
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () {
+                // Add your settings page navigation here
+                Navigator.pop(context); // Close the drawer when tapped
+              },
+            ),
           ),
         ],
       ),
@@ -127,6 +146,17 @@ class QRButton extends StatelessWidget {
       },
       child: Icon(Icons.qr_code),
       backgroundColor: Colors.blue,
+    );
+  }
+}
+
+// LoginPage (after user logs out)
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Login Page")),
+      body: Center(child: Text("Please log in to continue.", style: TextStyle(fontSize: 24))),
     );
   }
 }
