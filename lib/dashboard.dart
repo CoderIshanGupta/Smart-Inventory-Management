@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'profile.dart'; // Import the ProfilePage
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart'; // For the QR scanning
-import 'settings_widget.dart'; // Import the SettingsPage
+import 'package:inventory/settings_widget.dart';
+import 'registration_page.dart'; // Import the RegistrationPage
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -14,21 +15,10 @@ class DashboardPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              // Handle Logout here (e.g., sign out logic)
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text('Logged Out'),
-                  content: Text('You have been logged out.'),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context); // Close dialog
-                      },
-                      child: Text('OK'),
-                    ),
-                  ],
-                ),
+              // When the user clicks logout, navigate to the RegistrationPage
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => RegistrationPage()),
               );
             },
           ),
