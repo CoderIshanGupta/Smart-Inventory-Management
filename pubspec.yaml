@@ -61,6 +61,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/Logout.jpg
+    - assets/images/Lalaji.webp
+    - assets/images/Rupee.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
