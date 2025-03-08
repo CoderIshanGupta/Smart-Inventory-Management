@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dashboard.dart'; // Import the Dashboard screen file
+import 'registration_page.dart'; // Import the RegistrationPage
+import 'dashboard.dart'; // Import the DashboardPage
 
 void main() {
   runApp(MyApp());
@@ -10,11 +11,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Dashboard',
+      title: 'LalaJi Ledgers',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DashboardPage(), // Set the DashboardPage as the main screen
+      home: RegistrationPage(), // Set the RegistrationPage as the starting screen
     );
   }
 }
