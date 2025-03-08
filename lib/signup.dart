@@ -180,7 +180,7 @@ class _SignUpSignInPageState extends State<SignUpSignInPage> {
                       ? 'Already have an account? Sign In'
                       : 'Don’t have an account? Sign Up',
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Colors.black,
                     fontSize: 16,
                   ),
                 ),
