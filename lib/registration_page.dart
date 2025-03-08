@@ -1,121 +1,99 @@
 import 'package:flutter/material.dart';
 import 'package:inventory/dashboard.dart';
+import 'package:inventory/signup.dart';
 
 class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Set a default background color
       appBar: AppBar(
         title: Text('LalaJi Ledgers'),
         leading: Padding(
           padding: const EdgeInsets.all(8.0), // Adjust padding for spacing
           child: Image.asset(
-            'assets/images/Rupee.jpg', // Use the image from assets
-            fit: BoxFit.cover, // Ensures the image scales properly
+            'assets/images/Rupee.jpg', // Correct image path
+            fit: BoxFit.cover,
           ),
         ),
-        backgroundColor: Colors.white, // Set app bar background color
-        elevation: 2,
       ),
-      body: SingleChildScrollView(  // Wrap the content in a SingleChildScrollView
+      body: SingleChildScrollView(  // Ensures content scrolls in case of overflow
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center, // Center the column
+            crossAxisAlignment: CrossAxisAlignment.center, // Center the content
             children: [
               // Add the image at the top, centered
               Center(
                 child: Image.asset(
-                  'assets/images/Lalaji.webp',
-                  height: 150, // Adjust the height of the image
-                  fit: BoxFit.contain, // Ensure the image fits inside the given size
+                  'assets/images/Lalaji.webp',  // Correct path to the image
+                  height: 150,  // Adjust height as needed
+                  fit: BoxFit.contain, // Ensures image is contained within the given size
                 ),
               ),
               SizedBox(height: 16),
-              // Title Text
               Text(
                 'Welcome to LalaJi Ledgers Setup',
-                textAlign: TextAlign.center,  // Center the title
                 style: TextStyle(
-                  fontSize: 24, // Font size for the title
-                  fontWeight: FontWeight.bold, // Bold font for the title
-                  color: Colors.black, // Color for the text (black)
+                  fontSize: 24, 
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
+                textAlign: TextAlign.center, // Centered text
               ),
               SizedBox(height: 16),
-              // Description text
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text(
-                  'Start your Business Journey with ease. \nChoose a method to proceed with registration.',
-                  textAlign: TextAlign.center, // Center the description text
-                  style: TextStyle(
-                    fontSize: 16, // Font size for description
-                    fontWeight: FontWeight.bold, // Bold font for description
-                    color: Colors.black, // Black color for the text
-                  ),
-                ),
+              Text(
+                'Start your Business Journey with ease.',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.center,  // Centered text
               ),
               SizedBox(height: 24),
-              // Continue with Phone button
+              Text(
+                'Choose a method to proceed with registration.',
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.center,  // Centered text
+              ),
+              SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
                   // Add functionality for phone registration
                 },
-                child: Text(
-                  'Continue with Phone',
-                  style: TextStyle(color: Colors.white),  // Text color inside the button
-                ),
+                child: Text('Continue with Phone'),
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(320, 50), // Set a custom size for the button
-                  backgroundColor: Colors.blueAccent, // Button background color
+                  minimumSize: Size(350, 50),  // Full-width and 50px height
+                  backgroundColor: Colors.blue,  // Background color of the button
+                  foregroundColor: Colors.white, // Text color inside the button
                   textStyle: TextStyle(
-                    fontWeight: FontWeight.normal, // Lighter text for the button
-                    fontSize: 18, // Larger text size for better visibility
-                  ),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // Rounded corners for the button
+                    fontSize: 16, 
+                    fontWeight: FontWeight.w400, // Reduced boldness
                   ),
                 ),
               ),
               SizedBox(height: 16),
-              // Continue with Email button
               ElevatedButton(
-                onPressed: () {
-                  // Add functionality for email registration
+                onPressed: () { // Add functionality for email registration
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpSignInPage()),
+                  );
                 },
-                child: Text(
-                  'Continue with Email',
-                  style: TextStyle(color: Colors.white),  // Text color inside the button
-                ),
+                child: Text('Continue with Email'),
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(320, 50), // Set a custom size for the button
-                  backgroundColor: Colors.blueAccent, // Button background color
+                  minimumSize: Size(350, 50),  // Full-width and 50px height
+                  backgroundColor: Colors.blue,  // Background color of the button
+                  foregroundColor: Colors.white, // Text color inside the button
                   textStyle: TextStyle(
-                    fontWeight: FontWeight.normal, // Lighter text for the button
-                    fontSize: 18, // Larger text size for better visibility
-                  ),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // Rounded corners for the button
+                    fontSize: 16, 
+                    fontWeight: FontWeight.w400, // Reduced boldness
                   ),
                 ),
               ),
               SizedBox(height: 24),
-              // Text for new to app prompt
               Text(
                 'New to LalaJi Ledgers? Let’s get you onboard :)',
-                textAlign: TextAlign.center, // Center the text
-                style: TextStyle(
-                  fontSize: 16, // Font size for the prompt
-                  fontWeight: FontWeight.bold, // Bold font for the prompt
-                  color: Colors.black, // Black color for the text
-                ),
+                style: TextStyle(fontSize: 16),
+                textAlign: TextAlign.center,  // Centered text
               ),
               SizedBox(height: 16),
-              // Let's Get Started button
               ElevatedButton(
                 onPressed: () {
                   // Navigate to Dashboard after clicking on Let's Get Started
@@ -124,20 +102,14 @@ class RegistrationPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => DashboardPage()),
                   );
                 },
-                child: Text(
-                  'Let’s Get Started',
-                  style: TextStyle(color: Colors.white),  // Text color inside the button
-                ),
+                child: Text('Let’s Get Started'),
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(320, 50), // Set a custom size for the button
-                  backgroundColor: Colors.blueAccent, // Button background color
+                  minimumSize: Size(350, 50),  // Full-width and 50px height
+                  backgroundColor: Colors.blue,  // Background color of the button
+                  foregroundColor: Colors.white, // Text color inside the button
                   textStyle: TextStyle(
-                    fontWeight: FontWeight.normal, // Lighter text for the button
-                    fontSize: 18, // Larger text size for better visibility
-                  ),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // Rounded corners for the button
+                    fontSize: 16, 
+                    fontWeight: FontWeight.w400, // Reduced boldness
                   ),
                 ),
               ),
