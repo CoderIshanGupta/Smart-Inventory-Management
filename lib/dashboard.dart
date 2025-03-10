@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory/settings_widget.dart';
-import 'registration_page.dart'; // Import the RegistrationPage
+import 'Onboarding.dart'; // Import the OnboardingPage
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 
