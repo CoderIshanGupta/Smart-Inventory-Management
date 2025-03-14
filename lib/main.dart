@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'registration_page.dart'; // Import the RegistrationPage
+import 'Onboarding.dart'; // Import the OnboardingPage
 import 'dashboard.dart'; // Import the DashboardPage
 
 void main() {
