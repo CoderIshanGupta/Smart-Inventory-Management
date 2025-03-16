@@ -1,16 +1,84 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(MaterialApp(home: SignUpSignInPage(isSignUp: false))); // Default to SignIn page
+}
+
 class SignUpSignInPage extends StatefulWidget {
+  final bool isSignUp; // Track whether to show SignUp or SignIn
+
+  // Constructor to pass the mode (SignUp or SignIn)
+  SignUpSignInPage({required this.isSignUp});
+
   @override
   _SignUpSignInPageState createState() => _SignUpSignInPageState();
 }
 
 class _SignUpSignInPageState extends State<SignUpSignInPage> {
-  bool isSignUp = true; // Tracks whether the page is in SignUp or SignIn mode
+  late bool _isSignUp; // Use a local variable to track the mode
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
+  // Track the visibility of the passwords
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _isSignUp = widget.isSignUp; // Initialize the mode with the passed value
+  }
+
+  void _validateFields() {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      // Check for empty fields and show the validation message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill all the fields'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (_isSignUp && _confirmPasswordController.text.isEmpty) {
+      // If it's a sign-up form, make sure confirm password is filled
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill all the fields'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (_isSignUp &&
+        _passwordController.text != _confirmPasswordController.text) {
+      // If it's sign-up, ensure passwords match
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Passwords do not match'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    // Proceed with either Sign In or Sign Up based on the mode
+    if (_isSignUp) {
+      // Implement sign-up logic here
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Sign Up Successful')),
+      );
+    } else {
+      // Implement sign-in logic here
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Sign In Successful')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +89,7 @@ class _SignUpSignInPageState extends State<SignUpSignInPage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context); // Go back to the RegistrationPage
+            Navigator.pop(context); // Go back to the previous page
           },
         ),
         title: Center( // Center the content in the AppBar
@@ -63,7 +131,7 @@ class _SignUpSignInPageState extends State<SignUpSignInPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0), // Reduced padding
                 child: Text(
-                  isSignUp ? 'Create Account' : 'Sign In',
+                  _isSignUp ? 'Create Account' : 'Sign In',
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -95,7 +163,7 @@ class _SignUpSignInPageState extends State<SignUpSignInPage> {
                     SizedBox(height: 16), // Reduced gap
                     TextField(
                       controller: _passwordController,
-                      obscureText: true,
+                      obscureText: !_isPasswordVisible,  // Toggle password visibility
                       decoration: InputDecoration(
                         labelText: 'Password',
                         labelStyle: TextStyle(color: Colors.black),
@@ -106,14 +174,27 @@ class _SignUpSignInPageState extends State<SignUpSignInPage> {
                           borderSide: BorderSide.none,
                         ),
                         prefixIcon: Icon(Icons.lock, color: Colors.black),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;  // Toggle visibility
+                            });
+                          },
+                        ),
                       ),
                     ),
                     SizedBox(height: 16), // Reduced gap
                     // Only show confirm password in SignUp mode
-                    if (isSignUp)
+                    if (_isSignUp)
                       TextField(
                         controller: _confirmPasswordController,
-                        obscureText: true,
+                        obscureText: !_isConfirmPasswordVisible,  // Toggle visibility
                         decoration: InputDecoration(
                           labelText: 'Confirm Password',
                           labelStyle: TextStyle(color: Colors.black),
@@ -124,6 +205,19 @@ class _SignUpSignInPageState extends State<SignUpSignInPage> {
                             borderSide: BorderSide.none,
                           ),
                           prefixIcon: Icon(Icons.lock, color: Colors.black),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isConfirmPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isConfirmPasswordVisible = !_isConfirmPasswordVisible;  // Toggle visibility
+                              });
+                            },
+                          ),
                         ),
                       ),
                   ],
@@ -135,19 +229,7 @@ class _SignUpSignInPageState extends State<SignUpSignInPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Handle sign up or sign in logic here
-                    if (isSignUp) {
-                      // Implement sign-up logic (with confirm password validation)
-                      if (_passwordController.text == _confirmPasswordController.text) {
-                        // Proceed with Sign Up
-                      } else {
-                        // Show an error message for password mismatch
-                      }
-                    } else {
-                      // Implement sign-in logic
-                    }
-                  },
+                  onPressed: _validateFields, // Call validation function on submit
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,  // Button background color
                     foregroundColor: Colors.white, // Text color inside the button
@@ -158,7 +240,7 @@ class _SignUpSignInPageState extends State<SignUpSignInPage> {
                     minimumSize: Size(double.infinity, 60),
                   ),
                   child: Text(
-                    isSignUp ? 'Sign Up' : 'Sign In',
+                    _isSignUp ? 'Sign Up' : 'Sign In',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.normal, // Reduced boldness
@@ -172,11 +254,11 @@ class _SignUpSignInPageState extends State<SignUpSignInPage> {
               TextButton(
                 onPressed: () {
                   setState(() {
-                    isSignUp = !isSignUp; // Toggle between SignUp and SignIn
+                    _isSignUp = !_isSignUp; // Toggle the mode
                   });
                 },
                 child: Text(
-                  isSignUp
+                  _isSignUp
                       ? 'Already have an account? Sign In'
                       : 'Don’t have an account? Sign Up',
                   style: TextStyle(
